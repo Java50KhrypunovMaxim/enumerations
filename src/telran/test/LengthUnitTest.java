@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import telran.HW.LengthUnit;
 import telran.measure.Length;
+import telran.measure.LengthUnit;
 
 class LengthUnitTest {
 
@@ -30,5 +30,23 @@ class LengthUnitTest {
 	void testCompareTo() {
 	assertTrue(length2.compareTo(length1) < 0);
 	assertTrue(length1.compareTo(length2) > 0);
+	assertTrue(length2.compareTo(l3) == 0);
+	}
+	@Test
+	void testConvert() {
+	Length l = l3.convert(LengthUnit.M);
+	assertEquals(length2.getAmount(), l.getAmount());
+	assertEquals(length2.getUnit(), l.getUnit());
+	}
+	@Test
+	void testToString() {
+	assertEquals("500.0M", length2.toString());
+	}
+	@Test
+	void testBetween() {
+	Length l = LengthUnit.M.between(length2, length1);
+	assertEquals(l.getAmount(), length2.getAmount());
+	assertEquals(l.getUnit(), length2.getUnit());
+	assertEquals(l.getUnit(), LengthUnit.M);
 	}
 }

@@ -1,7 +1,5 @@
 package telran.measure;
 
-import telran.HW.LengthUnit;
-
 public class Length implements Comparable<Length>{
 	
 	private final float amount;
@@ -31,7 +29,7 @@ public class Length implements Comparable<Length>{
 
 	@Override
 	public String toString() {
-		return amount + " " + unit.name();
+		return amount + unit.name();
 	}
 
 	public LengthUnit getUnit()
