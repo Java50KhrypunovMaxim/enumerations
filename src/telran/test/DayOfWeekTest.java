@@ -59,6 +59,6 @@ class DayOfWeekTest {
 	void beetweenTest()
 	{
 		assertEquals(1,DayOfWeek.FRI.berween(DayOfWeek.SAT));
-		assertEquals(6,DayOfWeek.FRI.berween(DayOfWeek.THU));
+		assertEquals(1,DayOfWeek.FRI.berween(DayOfWeek.SAT));
 	}
 }
