@@ -12,17 +12,16 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 
 public class NextFriday13 implements TemporalAdjuster {
 
-    @Override
+	@Override
     public Temporal adjustInto(Temporal temporal) {
         if (!temporal.isSupported(ChronoUnit.DAYS)) {
             throw new UnsupportedTemporalTypeException(null);
         }
-        LocalDateTime currentDateTime = (LocalDateTime) temporal;
-        DayOfWeek dayOfWeek = currentDateTime.getDayOfWeek();
+        DayOfWeek dayOfWeek = ((LocalDate) temporal).getDayOfWeek();
         int dayValue = dayOfWeek.getValue();
         do {
             temporal = temporal.plus(1, ChronoUnit.DAYS);
-            dayOfWeek = currentDateTime.getDayOfWeek();
+            dayOfWeek = ((LocalDate) temporal).getDayOfWeek();
             dayValue = dayOfWeek.getValue();
         } while (dayValue != 5 || temporal.get(ChronoField.DAY_OF_MONTH) != 13);
         
