@@ -6,7 +6,7 @@ public enum LengthUnit {
 	float value;
 
 	LengthUnit(float nMillimeters) {
-		value = nMillimeters;
+		this.value = nMillimeters;
 	}
 
 	public float getValue() {
