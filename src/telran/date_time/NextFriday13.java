@@ -17,14 +17,11 @@ public class NextFriday13 implements TemporalAdjuster {
 	    if (!temporal.isSupported(ChronoUnit.DAYS)) {
 	        throw new UnsupportedTemporalTypeException(null);
 	    }
-	    
-	    DayOfWeek dayOfWeek = DayOfWeek.from(temporal);
-	    int dayValue = dayOfWeek.getValue();
+	    int dayValue = 0;
 	    do {temporal = temporal.plus(1, ChronoUnit.DAYS);
-	        dayOfWeek = DayOfWeek.from(temporal);
-	        dayValue = dayOfWeek.getValue();}
-	    
-	    while (dayValue != 5 || temporal.get(ChronoField.DAY_OF_MONTH) != 13); 
+	    DayOfWeek dayOfWeek = DayOfWeek.from(temporal);
+	    dayValue = dayOfWeek.getValue();}
+	    while (dayValue != 5 || temporal.get(ChronoField.DAY_OF_MONTH) != 13);
 	    
 	    return temporal;
 	}
