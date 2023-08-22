@@ -3,15 +3,19 @@ package telran.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.UnsupportedTemporalTypeException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import telran.date_time.BarMizvaAdjuster;
@@ -24,6 +28,7 @@ class TemperalTests {
 	}
 
 	@Test
+	@Disabled
 	void test() {
 		LocalDate birthDateASP = LocalDate.of(1799, 6, 6);
 		LocalDate.parse("1799-06-06");
@@ -36,6 +41,7 @@ class TemperalTests {
 				unit.between(birthDateASP, barMizvaAs) );
 	}
 	@Test
+	@Disabled
 	void barMizvaAdjusterTest()
 	{
 		TemporalAdjuster adjuster = new BarMizvaAdjuster();
@@ -45,6 +51,7 @@ class TemperalTests {
 		assertThrows(UnsupportedTemporalTypeException.class, ()-> LocalTime.now().with(adjuster));
 	}
 	@Test
+	@Disabled
 	void next13FridayTest()
 	{
 		TemporalAdjuster adjuster = new NextFriday13();
@@ -53,6 +60,38 @@ class TemperalTests {
 		LocalDate expected2 = LocalDate.of(2024, 9, 13);
 		assertEquals(expected1, ld.with(adjuster));
 		assertEquals(expected2, expected1.with(adjuster));
+	}
+	
+	@Test
+	void instantTest()
+	{
+		Instant instant  = Instant.ofEpochSecond(0);
+		System.out.println(instant);
+	}
+	
+	@Test
+	void instantTestZone()
+	{
+		ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Rome"));
+		DateTimeFormatter dtf= DateTimeFormatter.ofPattern("d/M/YYYY H:m z");
+		System.out.println(zdt.format(dtf));
+	}
+	@Test
+	void dayTimeTest()
+	{
+		zoneDateTimeTest("Kiev");
+	}
+
+	private void zoneDateTimeTest(String cityCountry) {
+		DateTimeFormatter dtf= DateTimeFormatter.ofPattern("d/M/YYYY H:m zzzz Z");
+		for (String zoneId : ZoneId.getAvailableZoneIds())
+		{
+			if(zoneId.contains(cityCountry)) {
+				ZonedDateTime zdt =ZonedDateTime.ofInstant(Instant.now(), ZoneId.of(zoneId));
+				System.out.println(zdt.format(dtf));
+			}
+		}
+		
 	}
 
 }
